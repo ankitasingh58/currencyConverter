@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Currency Converter</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Lobster&family=Pacifico&display=swap" rel="stylesheet">
+	<!-- linking style.css file-->
+<style>
+    body {
+	background-position: center;
+	background-size: cover;	
+    background:linear-gradient(white,orange);
+}
+.heading {
+	font-family: 'Pacifico', cursive;
+	color:#0000FF;
+}
+hr {
+	border-top: 2px solid #0000FF;
+	width:68%;
+	margin-bottom:18px;
+}
+.main {
+	width: 50vw;
+	margin: auto;
+	margin-bottom: 8px;
+	margin-top:5px;
+	padding:28px;
+	border-radius: 7px;
+	background-color: rgba(0,0,0, 0.7);
+	color:white;
+}
+label {
+	font-size: 20px;
+}
+.glow{
+	transform: translate(0%,0%);
+	animation:color 1s infinite;
+}
+@keyframes color{
+	10% {color:black;}
+	25% {color:red;}
+	50% {color:blue;}
+	100% {color:green;}
+}
+.btn {
+	width: 200px;
+}
+#finalAmount {
+	font-family: 'Lobster', cursive;
+	color:black;
+	margin-top:9px;
+}
+#finalAmount h2 {
+	font-size:35px;
+}
+.finalValue {
+	font-family: 'Amiri', serif;
+	font-size:33px;
+}
+</style>
+</head>
+<body>
+	<!-- Currency Converter -->
+	
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-sm-4"></div>
+	    <div class="col-sm-4">
+		<center><img src="change2.png" style="height: 180px; width:280px; margin-top:4px;"><h1 class="heading">Currency Converter</h1><hr>
+		</center>
+	    </div>
+	    <div class="col-sm-2"></div>
+	    <div class="col-sm-2">
+	    <span style="font-weight: bold">Developer page</span>&emsp;
+	    <a href="developer.html"><img src="logon.png"></a>
+	    </div>
+	   </div>
+	   <div class="row" style="min-height:27px;">
+	   	   <div class="col-sm-12"><h5 class="glow" style="text-align: center;">Choose The Currency & the Amount to get exchange Rate</h5></div>
+	   </div>
+		<div class="main">
+         	<div class="form-group">
+				<label for="oamount">Amount to Convert :</label>
+				<input type="text" class="form-control searchBox" placeholder="0.00" id="oamount">
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">From</span>
+						</div>
+						<select class="form-control from" id="sel1">
+							<option value="">Select One …</option>
+							<option value="INR">INR</option>
+							<option value="USD">USD</option>
+							<option value="EUR">EUR</option>
+							<option value="CAD">CAD</option>
+							<option value="BGN">BGN</option>
+							<option value="AED">AED</option>
+							<option value="ARS">ARS</option>
+							<option value="AUD">AUD</option>							
+							<option value="BRL">BRL</option>
+						    <option value="BSD">BSD</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="input-group mb-3">
+						<div class="input-group-prepend">
+							<span class="input-group-text">To</span>
+						</div>
+						<select class="form-control to" id="sel2">
+							<option value="">Select One …</option>
+							<option value="INR">INR</option>
+							<option value="USD">USD</option>
+							<option value="EUR">EUR</option>
+							<option value="CAD">CAD</option>
+							<option value="BGN">BGN</option>
+							<option value="AED">AED</option>
+							<option value="ARS">ARS</option>
+							<option value="AUD">AUD</option>							
+							<option value="BRL">BRL</option>
+						    <option value="BSD">BSD</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<!-- convert button -->
+				<button class="btn btn-primary convert m-2"	type="submit" onclick="changeVal()">Convert</button>
+				<!-- reset button -->
+				<button class="btn btn-primary m-2" onclick="clearVal()">Reset</button>
+			</div>
+		</div>
+		<div id="finalAmount" class="text-center">
+			<!-- Display the converted amount -->
+			<h2>Converted Amount :
+				<span class="finalValue" style="color:black; font-weight: bold" id="sp"></span>
+			</h2>
+		</div>
+	</div>
+	<!-- linking script.js file -->
+<script type="text/javascript">
+	   function changeVal()
+	    {
+	    	var list1,list2,num,result;
+	    	list1=document.getElementById("sel1").value;
+	    	list2=document.getElementById("sel2").value;
+            num=document.getElementById("oamount").value;     
+            // start INR    
+            
+           if(list1=="INR" && list2=="INR"){
+                  result=num;
+                  document.getElementById("sp").innerText=result;    
+         } 
+         else if(list1=="INR" && list2=="USD") 
+         {
+                  result=num*0.012;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="INR" && list2=="EUR")   
+         {
+                  result=num*0.012;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="INR" && list2=="CAD")   
+         {
+                  result=num*0.017;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="INR" && list2=="BGN")   
+         {
+                  result=num*0.024;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="INR" && list2=="AED")   
+         {
+                  result=num*0.004;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="INR" && list2=="ARS")   
+         {
+                  result=num*1.81;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="INR" && list2=="BRL")   
+         {
+                  result=num*0.71;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="INR" && list2=="BSD")   
+         {
+                  result=num*0.012;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+                              /*Finsh INR*/		
+                              
+                              
+         else if(list1=="USD" && list2=="INR")   
+         {
+                  result=num/0.012;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="USD" && list2=="USD")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="USD" && list2=="EUR")   
+         {
+                  result=num*1.03;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="USD" && list2=="CAD")   
+         {
+                  result=num*1.37;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="USD" && list2=="BGN")   
+         {
+                  result=num*2.01;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="USD" && list2=="AED")   
+         {
+                  result=num*3.67;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="USD" && list2=="ARS")   
+         {
+                  result=num*150.04;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="USD" && list2=="BRL")   
+         {
+                  result=num*0.71;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="USD" && list2=="BSD")   
+         {
+                  result=num*1.01;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+
+         else if(list1=="EUR" && list2=="INR")   
+         {
+                  result=num*80.72;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="EUR" && list2=="USD")   
+         {
+                  result=num*0.97;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="EUR" && list2=="EUR")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="EUR" && list2=="CAD")   
+         {
+                  result=num*1.34;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="EUR" && list2=="BGN")   
+         {
+                  result=num*1.96;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="EUR" && list2=="AED")   
+         {
+                  result=num*3.58;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="EUR" && list2=="ARS")   
+         {
+                  result=num*146.22;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="EUR" && list2=="BRL")   
+         {
+                  result=num*5.07;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="EUR" && list2=="BSD")   
+         {
+                  result=num*0.98;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+
+
+         else if(list1=="CAD" && list2=="INR")   
+         {
+                  result=num*60.28;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="CAD" && list2=="USD")   
+         {
+                  result=num*0.7;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="CAD" && list2=="EUR")   
+         {
+                  result=num*0.75;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="CAD" && list2=="CAD")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="CAD" && list2=="BGN")   
+         {
+                  result=num*1.46;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="CAD" && list2=="AED")   
+         {
+                  result=num*2.67;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="CAD" && list2=="ARS")   
+         {
+                  result=num*109.18;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="CAD" && list2=="BRL")   
+         {
+                  result=num*3.79;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="CAD" && list2=="BSD")   
+         {
+                  result=num*0.73;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+         else if(list1=="BGN" && list2=="INR")   
+         {
+                  result=num*41.26;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BGN" && list2=="USD")   
+         {
+                  result=num*0.50;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BGN" && list2=="EUR")   
+         {
+                  result=num*0.51;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BGN" && list2=="CAD")   
+         {
+                  result=num*0.68;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="BGN" && list2=="BGN")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }   
+
+         else if(list1=="BGN" && list2=="AED")   
+         {
+                  result=num*1.83;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BGN" && list2=="ARS")   
+         {
+                  result=num*74.74;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BGN" && list2=="BRL")   
+         {
+                  result=num*2.59;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BGN" && list2=="BSD")   
+         {
+                  result=num*0.50;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+         else if(list1=="AED" && list2=="AED")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="AED" && list2=="INR")   
+         {
+                  result=num*22.55;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="AED" && list2=="USD")   
+         {
+                  result=num*0.27;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="AED" && list2=="EUR")   
+         {
+                  result=num*0.28;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="AED" && list2=="CAD")   
+         {
+                  result=num*0.37;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="AED" && list2=="BGN")   
+         {
+                  result=num*0.55;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AED" && list2=="AED")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }   
+
+         else if(list1=="AED" && list2=="BRL")   
+         {
+                  result=num*1.42;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AED" && list2=="BSD")   
+         {
+                  result=num*0.27;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+         else if(list1=="ARS" && list2=="INR")   
+         {
+                  result=num*0.55;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="ARS" && list2=="USD")   
+         {
+                  result=num*0.0067;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="ARS" && list2=="EUR")   
+         {
+                  result=num*0.0068;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="ARS" && list2=="CAD")   
+         {
+                  result=num*0.0092;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="ARS" && list2=="BGN")   
+         {
+                  result=num*0.013;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="ARS" && list2=="ARS")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="ARS" && list2=="AED")   
+         {
+                  result=num*0.024;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+         else if(list1=="ARS" && list2=="BRL")   
+         {
+                  result=num*0.035;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="ARS" && list2=="BSD")   
+         {
+                  result=num*0.0067;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+
+
+         else if(list1=="AUD" && list2=="INR")   
+         {
+                  result=num*52.94;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="AUD" && list2=="USD")   
+         {
+                  result=num*0.64;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="AUD" && list2=="EUR")   
+         {
+                  result=num*0.66;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="AUD" && list2=="CAD")   
+         {
+                  result=num*0.87;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="AUD" && list2=="BGN")   
+         {
+                  result=num*0.128;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AUD" && list2=="ARS")   
+         {
+                  result=num*95.81;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AUD" && list2=="AED")   
+         {
+                  result=num*2.35;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AUD" && list2=="AUD")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AUD" && list2=="BRL")   
+         {
+                  result=num*3.33;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="AUD" && list2=="BSD")   
+         {
+                  result=num*0.64;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+
+         else if(list1=="BRL" && list2=="INR")   
+         {
+                  result=num*15.92;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BRL" && list2=="USD")   
+         {
+                  result=num*0.19;
+                  document.getElementById("sp").innerText=result; 
+         }   
+         else if(list1=="BRL" && list2=="EUR")   
+         {
+                  result=num*0.20;
+                  document.getElementById("sp").innerText=result; 
+         } 
+         else if(list1=="BRL" && list2=="CAD")   
+         {
+                  result=num*0.26;
+                  document.getElementById("sp").innerText=result; 
+         }  
+         else if(list1=="BRL" && list2=="BGN")   
+         {
+                  result=num*0.39;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BRL" && list2=="ARS")   
+         {
+                  result=num*28.83;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BRL" && list2=="AED")   
+         {
+                  result=num*0.71;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BRL" && list2=="AUD")   
+         {
+                  result=num*0.30;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BRL" && list2=="BRL")   
+         {
+                  result=num;
+                  document.getElementById("sp").innerText=result; 
+         }
+         else if(list1=="BRL" && list2=="BSD")   
+         {
+                  result=num*0.19;
+                  document.getElementById("sp").innerText=result; 
+         }
+
+
+
+         if(list1=="BSD" && list2=="INR"){
+            result=num*82.36;
+            document.getElementById("sp").innerText=result;    
+   } 
+   else if(list1=="BSD" && list2=="USD") 
+   {
+            result=num*0.99;
+            document.getElementById("sp").innerText=result; 
+   }  
+   else if(list1=="BSD" && list2=="EUR")   
+   {
+            result=num*1.02;
+            document.getElementById("sp").innerText=result; 
+   } 
+   else if(list1=="BSD" && list2=="CAD")   
+   {
+            result=num*1.37;
+            document.getElementById("sp").innerText=result; 
+   }
+   else if(list1=="BSD" && list2=="BGN")   
+   {
+            result=num*2.00;
+            document.getElementById("sp").innerText=result; 
+   } 
+   else if(list1=="BSD" && list2=="AED")   
+   {
+            result=num*3.65;
+            document.getElementById("sp").innerText=result; 
+   } 
+   else if(list1=="BSD" && list2=="ARS")   
+   {
+            result=num*149.20;
+            document.getElementById("sp").innerText=result; 
+   } 
+   else if(list1=="BSD" && list2=="BRL")   
+   {
+            result=num*5.17;
+            document.getElementById("sp").innerText=result; 
+   }
+   else if(list1=="BSD" && list2=="BSD")   
+   {
+            result=num;
+            document.getElementById("sp").innerText=result; 
+   }
+
+     }
+		function clearVal() {
+		   window.location.reload();
+           document.getElementById("finalValue").innerHTML="";
+		}	
+	</script>
+
+</body>
+
+</html>
+
